@@ -1,6 +1,7 @@
 import { Tree } from "./Tree/Tree";
-import { ApiNode } from "./types";
+import { ApiNode, Node } from "./types";
 import { apiNodesToTree, treeToNodes } from "./utils";
+import React, {createContext} from "react";
 
 const originalTree: ApiNode[] = [
   {
@@ -26,9 +27,13 @@ const originalTree: ApiNode[] = [
 
 const tree = apiNodesToTree(originalTree)
 const nodes = Array.from(treeToNodes(tree))
+export const NodeContext = createContext<Node[]>([]);
+
 
 export default function App() {
   return (
-    <Tree nodes={nodes} />
+    <NodeContext.Provider value={nodes}>
+      <Tree />
+    </NodeContext.Provider>
   );
 }
